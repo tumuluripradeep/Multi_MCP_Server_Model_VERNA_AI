@@ -1,0 +1,146 @@
+{
+    "youtube": {
+      "command": "mcp",
+      "args": [
+        "run",
+        "Servers/social/youtube.py"
+      ],
+      "transport": "stdio",
+      "env": {
+        "YOUTUBE_API_KEY": "${YOUTUBE_API_KEY}",
+        "AZURE_OPENAI_API_KEY": "${AZURE_OPENAI_API_KEY}",
+        "AZURE_OPENAI_ENDPOINT": "${AZURE_OPENAI_ENDPOINT}",
+        "AZURE_OPENAI_DEPLOYMENT": "${AZURE_OPENAI_DEPLOYMENT}",
+        "WEBSHARE_PROXY_USERNAME": "${WEBSHARE_PROXY_USERNAME}",
+        "WEBSHARE_PROXY_PASSWORD": "${WEBSHARE_PROXY_PASSWORD}",
+        "WEBSHARE_PROXY_LOCATIONS": "${WEBSHARE_PROXY_LOCATIONS}",
+        "YOUTUBE_TRANSCRIPT_HTTP_PROXY": "${YOUTUBE_TRANSCRIPT_HTTP_PROXY}",
+        "YOUTUBE_TRANSCRIPT_HTTPS_PROXY": "${YOUTUBE_TRANSCRIPT_HTTPS_PROXY}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8000"
+      },
+      "description": "YouTube server for searching videos, getting transcripts, and fetching comments"
+    },
+    "weather": {
+      "command": "mcp",
+      "args": [
+        "run",
+        "Servers/weather/weather_analysis_mcp.py"
+      ],
+      "transport": "stdio",
+      "env": {
+        "AZURE_OPENAI_API_KEY": "${AZURE_OPENAI_API_KEY}",
+        "AZURE_OPENAI_ENDPOINT": "${AZURE_OPENAI_ENDPOINT}",
+        "AZURE_OPENAI_DEPLOYMENT": "${AZURE_OPENAI_DEPLOYMENT}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8001"
+      },
+      "description": "Handles weather information queries. Use this server for queries about current weather, forecasts, or weather conditions for a specific location."
+    },
+    "slack": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-slack"
+      ],
+      "transport": "stdio",
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_APP_TOKEN": "${SLACK_APP_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}",
+        "SLACK_CHANNEL_IDS": "${SLACK_CHANNEL_IDS}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8002"
+      },
+      "description": "Handles Slack integration, listening to messages in Slack channels and routing them to the appropriate agent or tool. Use this server for queries about Slack communication, automation, or bot interactions."
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "transport": "stdio",
+      "env": {
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8003"
+      },
+      "description": "Handles browser automation and web scraping using Playwright. Use this server for queries that require automated browsing, data extraction, or web testing."
+    },
+    "service_system": {
+      "command": "mcp",
+      "args": [
+        "run",
+        "Servers/service/case/case_mcp.py"
+      ],
+      "transport": "stdio",
+      "env": {
+        "AZURE_OPENAI_API_KEY": "${AZURE_OPENAI_API_KEY}",
+        "AZURE_OPENAI_ENDPOINT": "${AZURE_OPENAI_ENDPOINT}",
+        "AZURE_OPENAI_DEPLOYMENT": "${AZURE_OPENAI_DEPLOYMENT}",
+        "D365_CLIENT_ID": "${D365_CLIENT_ID}",
+        "D365_CLIENT_SECRET": "${D365_CLIENT_SECRET}",
+        "D365_TENANT_ID": "${D365_TENANT_ID}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8006"
+      },
+      "description": "Handles all customer support, troubleshooting, and resolution for Adobe product issues, including software crashes, errors, and how-to questions. Use this server for queries about support cases, their status, summaries, and resolutions."
+    },
+    "sales_system": {
+      "command": "mcp",
+      "args": [
+        "run",
+        "Servers/sales/sales_system_mcp.py"
+      ],
+      "transport": "stdio",
+      "env": {
+        "AZURE_OPENAI_API_KEY": "${AZURE_OPENAI_API_KEY}",
+        "AZURE_OPENAI_ENDPOINT": "${AZURE_OPENAI_ENDPOINT}",
+        "AZURE_OPENAI_DEPLOYMENT": "${AZURE_OPENAI_DEPLOYMENT}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8007"
+      },
+      "description": "Comprehensive Dynamics 365 Sales system handling leads, opportunities, quotes, campaigns, and organizations. Use this server for all sales-related queries including lead management, opportunity pipeline analysis, quote processing, sales forecasting, campaign tracking, and account management with product entitlements."
+    },
+    "web_search_scrape_rag": {
+      "command": "mcp",
+      "args": [
+        "run",
+        "Servers/intelli_web_search/web_search_scrape_rag.py"
+      ],
+      "transport": "stdio",
+      "env": {
+        "AZURE_OPENAI_API_KEY": "${AZURE_OPENAI_API_KEY}",
+        "AZURE_OPENAI_ENDPOINT": "${AZURE_OPENAI_ENDPOINT}",
+        "AZURE_OPENAI_DEPLOYMENT": "${AZURE_OPENAI_DEPLOYMENT}",
+        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}",
+        "GOOGLE_SEARCH_ENGINE_ID": "${GOOGLE_SEARCH_ENGINE_ID}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8000"
+      },
+      "description": "Intelligent web search with scraping and RAG. Use this server for any general queries that require web search and analysis. e.g., What is the latest news about AI??"
+    },
+    "microsoft_docs": {
+      "url": "https://learn.microsoft.com/api/mcp",
+      "transport": "streamable_http",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "description": "Official Microsoft Docs MCP Server with semantic search against Microsoft official technical documentation. Provides real-time access to Microsoft Learn, Azure documentation, Microsoft 365 documentation, and other official Microsoft sources. Performs semantic search and returns up to 10 high-quality content chunks with article titles, URLs, and self-contained content excerpts."
+    },
+    "content_analysis": {
+      "command": "mcp",
+      "args": [
+        "run",
+        "Servers/content/content_analysis_mcp.py"
+      ],
+      "transport": "stdio",
+      "env": {
+        "AZURE_OPENAI_API_KEY": "${AZURE_OPENAI_API_KEY}",
+        "AZURE_OPENAI_ENDPOINT": "${AZURE_OPENAI_ENDPOINT}",
+        "AZURE_OPENAI_DEPLOYMENT": "${AZURE_OPENAI_DEPLOYMENT}",
+        "MCP_HOST": "127.0.0.1",
+        "MCP_PORT": "8005"
+      },
+      "description": "Handles basic content analysis, including metadata extraction and structure analysis. Use this server for queries about content analysis."
+    }
+}

@@ -1,0 +1,20 @@
+[project]
+name = "mcp-server-model"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.12",
+    "fastembed>=0.6.1",
+    "httpx>=0.24.0",
+    "langchain-openai>=0.3.16",
+    "mcp-use>=1.2.8",
+    "mcp[cli]>=1.7.1",
+    "psutil>=7.0.0",
+    "python-dotenv>=1.0.0",
+    "slack-bolt>=1.18.0",
+    "slack-sdk>=3.21.3",
+    "streamlit>=1.45.0",
+    "streamlit-chat>=0.1.1",
+]

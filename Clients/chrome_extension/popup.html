@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Verna AI Assistant</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Verna AI Assistant</h1>
+            <div class="header-actions">
+                <button id="openFullTabBtn" class="full-tab-btn" title="Open in Full Tab">
+                    <span class="btn-icon">↗️</span>
+                </button>
+            </div>
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot offline" id="statusDot"></span>
+                <span class="status-text" id="statusText">Connecting...</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="side-panel-notification" id="sidePanelNotification">
+                🎉 <strong>New!</strong> Look for the blue 🤖 floating button on any webpage for quick access to Verna AI!
+                <button class="close-notification" onclick="this.parentElement.style.display='none'">&times;</button>
+            </div>
+            
+            <!-- Session Management Section -->
+            <div class="section-container session-management-section" id="sessionManagementSection">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <span class="section-icon">🔗</span>
+                        Session Management
+                    </h3>
+                    <button class="section-toggle" id="sessionToggle" title="Toggle Section">
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                </div>
+                
+                <div class="section-content" id="sessionContent">
+                    <div class="session-info-card">
+                        <div class="session-current">
+                            <div class="session-status">
+                                <span class="status-badge active">Active</span>
+                                <span class="session-name" id="sessionInfo">Loading session...</span>
+                            </div>
+                            <div class="session-meta">
+                                <span class="session-stats" id="sessionStats">0 questions</span>
+                                <span class="session-time" id="sessionTime">Just started</span>
+                            </div>
+                        </div>
+                        
+                        <div class="session-controls">
+                            <select id="sessionSelect" class="session-select">
+                                <option value="">Loading sessions...</option>
+                            </select>
+                            <button id="clearSessionBtn" class="session-action-btn danger" title="Clear Session">
+                                <span>🗑️</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Page Section -->
+            <div class="section-container current-page-section" id="currentPageSection">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <span class="section-icon">📄</span>
+                        Current Page Context
+                    </h3>
+                    <button class="section-toggle" id="pageToggle" title="Toggle Section">
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                </div>
+                
+                <div class="section-content" id="pageContent">
+                    <div class="page-info-card">
+                        <div class="page-current" id="pageContext">
+                            <div class="page-title-container">
+                                <strong class="page-label">Page:</strong>
+                                <span class="page-title" id="pageTitle">Loading...</span>
+                            </div>
+                            <div class="page-url-container">
+                                <span class="page-url" id="pageUrl">Loading...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="page-selected" id="selectedContext" style="display: none;">
+                            <div class="selected-text-container">
+                                <strong class="selected-label">Selected:</strong>
+                                <span class="selected-text" id="selectedText"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="page-options">
+                            <label class="page-option-label">
+                                <input type="checkbox" id="includePageContent" checked>
+                                <span class="checkmark"></span>
+                                Include page content
+                            </label>
+                            <label class="page-option-label">
+                                <input type="checkbox" id="includeSelectedText" checked>
+                                <span class="checkmark"></span>
+                                Include selected text
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Query Section -->
+            <div class="query-section">
+                <div class="input-section">
+                    <textarea 
+                        id="queryInput" 
+                        class="query-input" 
+                        placeholder="Ask me anything about this page or anything else..."
+                        rows="3"
+                    ></textarea>
+                    
+                    <div class="options-row">
+                        <select id="serverSelect" class="server-select">
+                            <option value="">🔄 Auto-select server</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Authentication Status Section -->
+                    <div id="authStatusSection" class="auth-status-section" style="display: none;">
+                        <div class="auth-status-card">
+                            <div class="auth-status-info">
+                                <span class="auth-status-icon">🔐</span>
+                                <span class="auth-status-text">Authentication required</span>
+                            </div>
+                            <button id="quickLoginBtn" class="auth-quick-btn">Login</button>
+                        </div>
+                    </div>
+                    
+                    <button id="submitBtn" class="submit-btn">
+                        <span class="btn-text">Ask Assistant</span>
+                        <span class="btn-loading" style="display: none;">Processing...</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="responseSection" class="response-section" style="display: none;">
+                <div class="response-header">
+                    <span class="response-title">Response</span>
+                    <span class="server-used" id="serverUsed"></span>
+                </div>
+                <div id="responseContent" class="response-content"></div>
+                <div class="response-actions">
+                    <button id="copyBtn" class="action-btn">📋 Copy</button>
+                    <button id="clearBtn" class="action-btn">🗑️ Clear</button>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="quick-btn" data-query="Summarize this page">
+                    📄 Summarize Page
+                </button>
+                <button class="quick-btn" data-query="Explain this content">
+                    💡 Explain Content
+                </button>
+                <button class="quick-btn" data-query="Find key insights">
+                    🎯 Key Insights
+                </button>
+                <button class="quick-btn" data-query="Translate this page">
+                    🌐 Translate
+                </button>
+            </div>
+            
+            <!-- Playwright Automation Section -->
+            <div class="automation-section">
+                <div class="section-header">
+                    <h4 class="automation-title">
+                        <span class="section-icon">🎭</span>
+                        Playwright Automation
+                    </h4>
+                </div>
+                <div class="automation-actions">
+                    <button class="automation-btn" id="screenshotBtn" title="Take screenshot of current page">
+                        📸 Screenshot
+                    </button>
+                    <button class="automation-btn" id="fillFormBtn" title="Auto-fill forms on this page">
+                        📝 Fill Form
+                    </button>
+                    <button class="automation-btn" id="extractDataBtn" title="Extract structured data from page">
+                        📊 Extract Data
+                    </button>
+                    <button class="automation-btn" id="testLinksBtn" title="Test all links on this page">
+                        🔗 Test Links  
+                    </button>
+                    <button class="automation-btn" id="compareBtn" title="Compare this page with competitors">
+                        ⚖️ Compare
+                    </button>
+                    <button class="automation-btn" id="monitorBtn" title="Monitor this page for changes">
+                        👁️ Monitor
+                    </button>
+                </div>
+                <div class="automation-test">
+                    <button class="automation-test-btn" id="testPlaywrightBtn" title="Test Playwright server execution">
+                        🧪 Test Playwright
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="stats">
+                <span id="requestCount">0 requests</span>
+                <span class="separator">•</span>
+                <span id="lastRequestTime">Never</span>
+            </div>
+            <div class="footer-actions">
+                <button id="historyBtn" class="footer-btn" title="View History">📜</button>
+                <button id="settingsBtn" class="footer-btn" title="Settings">⚙️</button>
+                <button id="helpBtn" class="footer-btn" title="Help">❓</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- History Modal -->
+    <div id="historyModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Request History</h3>
+                <button id="closeHistoryBtn" class="close-btn">&times;</button>
+            </div>
+            <div id="historyContent" class="modal-body">
+                Loading history...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button id="closeSettingsBtn" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="apiUrl">API URL:</label>
+                    <input type="text" id="apiUrl" value="http://localhost:8001" class="setting-input">
+                </div>
+                <div class="setting-group">
+                    <label for="streamlitUrl">Streamlit App URL:</label>
+                    <input type="text" id="streamlitUrl" value="http://localhost:8501" class="setting-input">
+                </div>
+                <div class="setting-group">
+                    <label for="autoSubmit">Auto-submit on Enter:</label>
+                    <input type="checkbox" id="autoSubmit" checked>
+                </div>
+                <div class="setting-group">
+                    <label for="maxHistory">Max History Items:</label>
+                    <input type="number" id="maxHistory" value="50" min="10" max="1000" class="setting-input">
+                </div>
+                <div class="setting-group">
+                    <label for="enableFloatingButton">
+                        <input type="checkbox" id="enableFloatingButton" checked>
+                        Enable floating button on web pages
+                    </label>
+                </div>
+                
+                <button id="saveSettingsBtn" class="submit-btn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html> 

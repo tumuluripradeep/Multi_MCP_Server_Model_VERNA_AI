@@ -1,0 +1,25 @@
+{
+    "provider": "azureopenai",
+    "model": "gpt-4o-mini",
+    "temperature": 0.3,
+    "max_tokens": 4000,
+    "max_retries": 2,
+    "request_timeout": 120,
+    "streaming": true,
+    "azure": {
+      "deployment": "ats-aria-gpt-4o-mini",
+      "api_version": "2024-02-15-preview"
+    },
+    "openai": {
+      "api_key": "YOUR_OPENAI_KEY"
+    },
+    "gemini": {
+      "api_key": "YOUR_GEMINI_KEY"
+    },
+    "claude": {
+      "api_key": "YOUR_CLAUDE_KEY"
+    },
+    "mistral": {
+      "api_key": "YOUR_MISTRAL_KEY"
+    }
+  }
